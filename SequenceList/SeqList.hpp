@@ -7,10 +7,13 @@ class SeqList
 {
 public:
 	SeqList();
-	void InitList(int MaxSize);
+	void ListInit(int MaxSize);
 	bool Push(T val);
 	void IncreaseSize(int len);
-	void PrintList();
+	void ListPrint();
+	bool ListInsert(int index, T val);
+	bool ListDelete(int index, T& val);
+	T GetElem(int index);
 
 private:
 	T* data;
@@ -25,7 +28,7 @@ SeqList<T>::SeqList()
 }
 
 template<class T>
-void SeqList<T>::InitList(int MaxSize)
+void SeqList<T>::ListInit(int MaxSize)
 {
 	data = new T[MaxSize];
 	length = 0;
@@ -54,12 +57,48 @@ void SeqList<T>::IncreaseSize(int len)
 }
 
 template<class T>
-void SeqList<T>::PrintList()
+void SeqList<T>::ListPrint()
 {
 	for (int i = 0; i < length; i++)
-	{
 		std::cout << data[i] << " ";
-	}
+	std::cout << std::endl;
+}
+
+template<class T>
+bool SeqList<T>::ListInsert(int index, T val)
+{
+	if (index < 0 || index > MaxSize || length >= MaxSize)
+		return false;
+
+	for (int i = length;i > index;i--)
+		data[i] = data[i - 1];
+	data[index] = val;
+
+	length++;
+	return true;
+}
+
+template<class T>
+bool SeqList<T>::ListDelete(int index, T& val)
+{
+	if (index < 1 || index > length)
+		return false;
+
+	val = data[index - 1];
+	for (int i = index;i < length;i++)
+		data[i - 1] = data[i];
+
+	length--;
+	return true;
+}
+
+template<class T>
+T SeqList<T>::GetElem(int index)
+{
+	if (index < 0 || index >= length)
+		throw std::out_of_range("不合法的范围");
+
+	return data[index];
 }
 
 
