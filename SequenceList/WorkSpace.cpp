@@ -5,5 +5,6 @@
 int main()
 {
 	SeqList<int> s;
+
 	return 0;
 }

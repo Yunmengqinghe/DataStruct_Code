@@ -13,7 +13,8 @@ public:
 	void ListPrint();
 	bool ListInsert(int index, T val);
 	bool ListDelete(int index, T& val);
-	T GetElem(int index);
+	T GetElem(int index); //通过下标寻值
+	int LocateElem(T val); //返回对应数值下标
 
 private:
 	T* data;
@@ -99,6 +100,15 @@ T SeqList<T>::GetElem(int index)
 		throw std::out_of_range("不合法的范围");
 
 	return data[index];
+}
+
+template<class T>
+int SeqList<T>::LocateElem(T val)
+{
+	for (int i = 0;i < length;i++)
+		if (data[i] == val)
+			return i;
+	return -1;
 }
 
 
